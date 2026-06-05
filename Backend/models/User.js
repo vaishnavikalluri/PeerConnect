@@ -39,6 +39,50 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			default: '',
 		},
+		githubLink: {
+			type: String,
+			default: '',
+		},
+		linkedinLink: {
+			type: String,
+			default: '',
+		},
+		portfolioLink: {
+			type: String,
+			default: '',
+		},
+		experienceLevel: {
+			type: String,
+			enum: ['Beginner', 'Intermediate', 'Advanced'],
+			default: 'Beginner',
+		},
+		projects: {
+			type: [
+				{
+					title: {
+						type: String,
+						default: '',
+					},
+					description: {
+						type: String,
+						default: '',
+					},
+					techStack: {
+						type: [String],
+						default: [],
+					},
+					githubUrl: {
+						type: String,
+						default: '',
+					},
+					liveUrl: {
+						type: String,
+						default: '',
+					},
+				},
+			],
+			default: [],
+		},
 		offeredSkills: {
 			type: [String],
 			default: [],
