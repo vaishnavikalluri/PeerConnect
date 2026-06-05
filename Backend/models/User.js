@@ -19,10 +19,40 @@ const userSchema = new mongoose.Schema(
 			required: true,
 			minlength: 6,
 		},
+		profileImage: {
+			type: String,
+			default: '',
+		},
+		college: {
+			type: String,
+			default: '',
+		},
+		year: {
+			type: String,
+			default: '',
+		},
+		location: {
+			type: String,
+			default: '',
+		},
+		bio: {
+			type: String,
+			default: '',
+		},
+		offeredSkills: {
+			type: [String],
+			default: [],
+		},
+		wantedSkills: {
+			type: [String],
+			default: [],
+		},
+		createdAt: {
+			type: Date,
+			default: Date.now,
+			immutable: true,
+		},
 	},
-	{
-		timestamps: true,
-	}
 );
 
 const User = mongoose.model('User', userSchema);

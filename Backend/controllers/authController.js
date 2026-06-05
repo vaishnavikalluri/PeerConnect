@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { sendEmail } from "../services/emailService.js";
+
 
 const generateToken = (id) => {
 	const jwtSecret = process.env.JWT_SECRET;
@@ -34,6 +36,15 @@ export const signup = async (req, res) => {
 			email: email.toLowerCase(),
 			password: hashedPassword,
 		});
+		await sendEmail(
+  			user.email,
+  			"Welcome to PeerConnect 🚀",
+  		`<h2>Welcome to PeerConnect!</h2>
+  		<p>Hello ${user.name},</p>
+  		<p>Your account has been created successfully.</p>
+  		<p>Complete your profile and start collaborating with peers.</p>
+  		`
+);
 
 		return res.status(201).json({
 			message: 'User registered successfully',
