@@ -15,6 +15,11 @@ const buildProfileUpdate = (body) => {
 		'year',
 		'location',
 		'bio',
+		'githubLink',
+		'linkedinLink',
+		'portfolioLink',
+		'experienceLevel',
+		'projects',
 		'offeredSkills',
 		'wantedSkills',
 	];
@@ -68,6 +73,25 @@ export const updateProfile = async (req, res) => {
 
 		if (Object.keys(updates).length === 0) {
 			return res.status(400).json({ message: 'No profile fields provided for update' });
+		}
+
+		if (
+			updates.experienceLevel !== undefined &&
+			!['Beginner', 'Intermediate', 'Advanced'].includes(updates.experienceLevel)
+		) {
+			return res.status(400).json({
+				message: 'experienceLevel must be Beginner, Intermediate, or Advanced',
+			});
+		}
+
+		if (updates.projects !== undefined) {
+			if (!Array.isArray(updates.projects)) {
+				return res.status(400).json({ message: 'projects must be an array' });
+			}
+
+			if (updates.projects.length > 3) {
+				return res.status(400).json({ message: 'projects can contain at most 3 items' });
+			}
 		}
 
 		if (updates.offeredSkills !== undefined && !Array.isArray(updates.offeredSkills)) {
